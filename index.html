@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <title>Hex, Decimal, Binary, Octal Calculator for Programmers</title>
+    <meta name="description" content="Interactively converts between 32-bit Decimal, Hex, Binary and Octal numbers. Individual bits can be set and cleared.">
+
+    <meta property="og:title" content="Hex, Decimal, Binary, Octal Calculator for Programmers" />
+    <meta
+      property="og:description"
+      content="Interactively converts between 32-bit Decimal, Hex, Binary and Octal numbers. Individual bits can be set and cleared."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.50x.ca/preview.png"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="scripts/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <script async defer data-domain="calc.50x.ca" src="https://stats.50x.ca/js/index.js"></script>
+</head>
+<body class="colorTransition">
+    <script>
+        if(window.localStorage.getItem("darkmode") === 'true'){
+            document.documentElement.setAttribute("color-mode", "dark");
+        } else {
+            document.documentElement.setAttribute("color-mode", "light");
+        }
+    </script>
+    
+    <header id="header">
+        <div id="titlebar">
+            <div id="logo">///</div>
+            <h1 id="title">Hex, Decimal, Octal, Binary Calculator</h1>
+        </div>
+    </header>
+    <section id="content">
+        <div id="content-inner">
+            <div id="calculator">
+                <h2>About This Calculator</h2>
+                <p>This calculator gives you a quick and easy way to visualize and convert numbers between hexadecimal, decimal, octal and binary. All fields update in real time. When you edit a number in one numbering system the changes will immediately reflect in all the others. You can also click on the bits to directly clear or set them and observe how the number changes.</p>
+                <section id="calcSection" class="box colorTransition">
+                    <form id="calcInput" class="colorTransition">
+                        <div class="inputSet colorTransition">
+                            <label for="dec">Dec:</label>
+                            <input type="text" class="numericEntry" id="dec" name="dec">
+                        </div>
+                        <div class="inputSet colorTransition">
+                            <label for="hex">Hex:</label>
+                            <input type="text" class="numericEntry" id="hex" name="hex">
+                        </div>
+                        <div class="inputSet colorTransition">
+                            <label for="oct">Oct:</label>
+                            <input type="text" class="numericEntry" id="oct" name="oct">
+                        </div>
+                        <div class="inputSet colorTransition">
+                            <label for="bin">Bin:</label>
+                            <input type="text" class="numericEntry" id="bin" name="bin">
+                        </div>
+                    </form>
+        
+                    <div id="binInput" class="colorTransition">
+                        <div class="byte colorTransition">
+                            <div class="l-msb bitlabel">31</div>
+                            <div class="l-lsb bitlabel">24</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                        </div>
+                        <div class="byte colorTransition">
+                            <div class="l-msb bitlabel">23</div>
+                            <div class="l-lsb bitlabel">16</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                        </div>
+                        <div class="byte colorTransition">
+                            <div class="l-msb bitlabel">15</div>
+                            <div class="l-lsb bitlabel">8</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                        </div>
+                        <div class="byte colorTransition">
+                            <div class="l-msb bitlabel">7</div>
+                            <div class="l-lsb bitlabel">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                            <div class="bit">0</div>
+                        </div>
+                    </div>
+                    <form id="shift">   
+                        <button class="box shiftButton colorTransition" id="setAll" type="button">Set All</button>
+                        <button class="box shiftButton colorTransition" id="shiftLeft" type="button">Shift Left</button>
+                        <p id="shiftAmount">>> 0</p>
+                        <button class="box shiftButton colorTransition" id="shiftRight" type="button">Shift Right</button>
+                        <button class="box shiftButton colorTransition" id="clearAll" type="button">Clear All</button>
+                        
+                    </form>
+                    <div class="box colorTransition">
+                        <p class="boxHeading">Settings</p>
+                        <form class="boxInner">
+                            <div class="setting">
+                                <label for="uppercase_setting">
+                                    <input type="checkbox" id="uppercase_setting" name="uppercase_setting">Use Uppercase Hex</input>
+                                </label>
+                            </div>
+                            <div class="setting">
+                                <label for="c_literal_setting">
+                                    <input type="checkbox" id="c_literal_setting" name="c_literal_setting">Format With Code Style</input>
+                                </label>
+                            </div>
+                            <div class="setting">
+                                <label for="darkmode_setting">
+                                    <input type="checkbox" id="darkmode_setting" name="darkmode_setting">Dark Mode 😎</input>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="center smallText"><a href="https://michael.kafarowski.com/projects/calc50x/">Learn More About This Calculator</a></div>
+                    <!--<div class="box">
+                        <p class="boxHeading">Examples</p>
+                        <div class="boxInner">
+                            <p>0xCAFEBABE (First 4 bytes of a Java class file) </p>
+                            <p>0x5f3759df (Fast Inverse Square Root)</p>
+                            <p>149597870 (Average Distance To The Sun in km)</p>
+                        </div>  
+                    </div>-->
+                    
+
+                </section>
+                
+                <article id="aboutAltNum">
+                    <h2>How Do Base-N Number Systems Work?</h2>
+                    <p>Let's think about how we count numbers. We could count to large numbers with only one digit, but we would need a large number of unique symbols to represent those numbers! We could also represent a large number by using tally marks, but we would reach a large number of tally marks very quickly. To solve these problems (and generally make math easier) we count numbers using bases. In base systems each digit in a number represents the number of "full buckets" of the previous digit. In the decimal system we have ten symbols (0-9) per digit. When we want to count higher than 9, we add a 1 to the tens digit, then set the ones digit back to 0 (09->10). The 1 in the tens digit means "we have 1 full bucket of ten". 137 means "we have 1 full bucket of one hundred, plus 3 full buckets of ten, plus 7."</p>
+                    <p>In hexadecimal (base-16) we have 16 symbols. With only one digit we can count from zero to fifteen. The extra digits after 9 are represented by A, B, C, D, E, and F. When we count up to F (15 in decimal) and want to add one more, we add a 1 to the "sixteens" digit and set the F back to 0 (F->10). It's important to note that 10 in hexadecimal is not the same as 10 in decimal. To avoid confusion you'll sometimes see hex notated with '0x' in front, e.g. 0x10 = 16 (decimal). 0x10 means "we have 1 full bucket of sixteen". Likewise, a hex number like 0x3F means "we have 3 full buckets of sixteen, plus F (15) equals 63."</p>
+                    <p>In general, you can convert a number system of base-n (where n is a real positive integer) to base 10 with a0 + (a1 * n^1) + (a2 * n^2) + ..., where a0, a1, a2... are the integers of each digit. 137 (base-10) = (1 * 10^2) + (3 * 10^1) + 7. 0x2AC (base-16) = (2 * 16^2) + (10 * 16^2) + 12 = 684.</p>
+                    <h2>Why Bother?</h2>
+                    <p>Most humans have ten fingers, so base-10 arose as the most natural counting system for everyday life. However, life for programmers is different, because computers operate with only 1s and 0s. Having only two unique symbols per digit means they must use binary (base-2) for calculations. Hexadecimal (base-16) is a convenient way to represent bytes. A single byte can be represented by two hex digits (0xFF = 0b11111111). Octal isn't as common nowadays, but still <a href="https://softwareengineering.stackexchange.com/questions/98692/where-are-octals-useful" target="_blank">carries some use</a> in computing and human life.</p>
+                    <h2>How to Count to 1023 on Two Hands</h2>
+                    <p>Just because we have 10 fingers, doesn't mean we need to use them like tally marks! Think of your fingers as a 10-bit binary number. A closed or curled finger represents a 0 and an extended finger represents a 1. Closing all your fingers gives you 0. Pointing only your right pinky gives 1. Curling the pinky and pointing the ring finger gives 10b = 2. Extending your pinky again gives you 11b = 3. Curling the pinky and ring and extending the middle finger gives a potentially offensive 100b = 4.</p>
+                    <p>You can point or curl any combination of your finger to get a different number. Pointing your right index, right ring, and right pinky fingers gives 1011b = 11. Pointing your left ring finger, left thumb, right index finger gives 100101000b = 296! And hey, if you are dexterous enough to point and curl individual toes, you could even count up to 1048575! Put those digits to work!</p>
+                </article>
+            </div>
+            <div id="sidebar">
+                <table id="quickRef">
+                </table>
+            </div>
+        </div>
+    </section>
+    <section id="footer">
+        <p>Built by <a href="https://michael.kafarowski.com">Michael Kafarowski</a>. Last updated in November 2021. If you find this tool valuable, consider <a href="https://ko-fi.com/mkafarowski">buying me a coffee ☕</a>!</a> </p>
+    </section>
+    <script src="scripts/calc.js" type = "text/javascript"></script>
+ 
+</body>
+ 
+ 
+</html>
